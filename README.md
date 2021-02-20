@@ -3,6 +3,8 @@
 ## API structure
 
 In the core of API is used neural network model, what was trained to generate text by using keywords.
+github that corresponds to training data: https://github.com/take2make/key2text
+
 API was constructed by using GO language.
 For predict result text is used python.
 To speed up transfer between GO and Python are used sockets, so we do need to wait model initializing.
