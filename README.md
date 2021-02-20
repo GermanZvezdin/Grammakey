@@ -1,6 +1,6 @@
 # GrammaKey API and swift app
 
-# API structure
+## API structure
 
 In the core of API is used neural network model, what was trained to generate text by using keywords.
 API was constructed by using GO language.
@@ -11,4 +11,20 @@ On API users just need to send the following json: {"text", "your key words"}). 
 
 Following picture shows simple structure of transfer between back and API.
 ![alt tag](https://github.com/take2make/sra_api/blob/main/view.png)
+
+## Run
+
+Firstly run socket in API
+
+> main.py
+
+it initilizes model and socket to transfer data into go from python.
+
+Second run API
+
+> main.go
+
+Now api url is running, and you can send request to api url.
+
+## Swift app
 
