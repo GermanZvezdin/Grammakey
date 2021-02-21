@@ -35,6 +35,9 @@ def thread_func(conn):
             print(json_obj)
 
             res = generate(json_obj['text'])
+            for char in '\"':
+                res = res.replace(char, '')
+            
             conn.send(f"{res}".encode())
         else:
             print("timeout")
@@ -44,7 +47,7 @@ def thread_func(conn):
     del user_list[name]
     sleep(0.1)
 
-sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 sock.bind(('127.0.0.1', 8000))
 sock.listen(10)
