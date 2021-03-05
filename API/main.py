@@ -35,6 +35,9 @@ def thread_func(conn):
             print(json_obj)
 
             res = generate(json_obj['text'])
+            for char in '\"':
+                res = res.replace(char, '')
+            
             conn.send(f"{res}".encode())
         else:
             print("timeout")

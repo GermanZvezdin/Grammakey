@@ -8,7 +8,30 @@
 import UIKit
 import SwiftUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
+class AnyGestureRecognizer: UIGestureRecognizer {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        if let touchedView = touches.first?.view, touchedView is UIControl {
+            state = .cancelled
+
+        } else if let touchedView = touches.first?.view as? UITextView, touchedView.isEditable {
+            state = .cancelled
+
+        } else {
+            state = .began
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+       state = .ended
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+        state = .cancelled
+    }
+}
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UIGestureRecognizerDelegate {
 
     var window: UIWindow?
 
@@ -27,6 +50,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
+            let tapGesture = AnyGestureRecognizer(target: window, action:#selector(UIView.endEditing))
+            tapGesture.requiresExclusiveTouchType = false
+            tapGesture.cancelsTouchesInView = false
+            tapGesture.delegate = self //I don't use window as delegate to minimize possible side effects
+            window.addGestureRecognizer(tapGesture)
+ 
         }
     }
 
@@ -59,5 +88,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
+}
+extension SceneDelegate{
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
