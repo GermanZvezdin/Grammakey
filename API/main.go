@@ -76,7 +76,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 	activeusers[usercounter] = "In work"
 
 	w.Write([]byte(defans) )
-	go MlSender(data.Text, id)
+	MlSender(data.Text, id)
 
 }
 
