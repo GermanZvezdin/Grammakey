@@ -89,8 +89,9 @@ class GecBERTModel(object):
             if torch.cuda.is_available():
                 model.load_state_dict(torch.load(model_path))
             else:
+                print(f"\n {model_path} \n")
                 model.load_state_dict(torch.load(model_path,
-                                                 map_location=torch.device('cpu')))
+                                                 map_location={'cuda:0': 'cpu'}))
             model.eval()
             self.models.append(model)
 
