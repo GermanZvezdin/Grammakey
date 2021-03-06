@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/styles.css" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Red+Hat+Display:ital,wght@0,900;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logosuper">
+          <div class="logo">
+            <img class="logoimg" src="static/images/Capture.PNG" alt="" />
+          </div>
+          <div class="grammakey">GrammaKey</div>
+        </div>
+       
+      </header>
+      
+        <div class="mainContainer">
+          {{ if .Loaded }}
+            <button class="downloadbutton">
+              <div сlass="dnldtext">Download</div>
+              <div class="img">
+                <img class="downloadimg" src="static/images/download.png" alt="" />
+              </div>
+            </button>
+          {{ end }}
+          <form id="formData" method="post" enctype="multipart/form-data">
+          <div class="translation">
+           <hr class="horizontal">
+           <hr class="vertical"> 
+            <div class="left">
+              <textarea form="formData" id="key_sentence" name="key_sentence" placeholder="Enter Sentence" style="width: 80%;height: 75%"></textarea>
+              <div class="llang">
+                <div class="langchoose">
+                  <div class="buttons">
+                    <button class="pen">English</button>
+                    <button class="vpered">Russian</button>
+                  </div>
+                 
+                </div>
+              </div>
+              <div class="limg">
+                <img style="margin-right: 15px;" src="static/images/microphone.png" alt="">
+              </div>
+              
+            </div>
+            <div class="right">
+              {{ if .Loaded }}
+                <textarea placeholder="Get text" style="width: 80%;height: 75%">{{ .Result }}</textarea>
+              {{ else }}
+                <textarea readonly placeholder="Get text" style="width: 80%;height: 75%"></textarea>
+              {{ end }}
+              <div class="rlang">
+                <div class="langchoose">
+                  <div class="result"><button>English</button> </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <button class="textgen" type="submit" form="formData">
+            <div>Generate</div>
+          </button>
+          </form>
+        </div>
+    </div>
+  </body>
+</html>
