@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css"/>
+   
+    <link rel="stylesheet" href="/all.css">
+  </head>
+  <body>
+
+  <div class="landing-4">
+  <div class="auto-flex7">
+    <div class="x51">
+      <div class="overlap-group13">
+        <img
+          class="x17"
+          src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------17@1x.png"
+        />
+        <img
+          class="x18"
+          src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------18@1x.png"
+        />
+      </div>
+      <img
+        class="x13"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------13@1x.png"
+      />
+      <img
+        class="x14"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------14@1x.png"
+      />
+      <img
+        class="x15"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------15@1x.png"
+      />
+      <div class="auto-flex">
+        <img
+          class="x16"
+          src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------16@1x.png"
+        />
+        <div class="x90"></div>
+      </div>
+    </div>
+    <div class="auto-flex6">
+      <img
+        class="icon-material-c-x-outline-blank"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/icon-material-check-box-outline-blank@1x.png"
+      />
+      <div class="about poppins-bold-oslo-gray-14px">About</div>
+    </div>
+    <div class="overlap-group1">
+      <img
+        class="icon-material-c-bubbleoutline"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/icon-material-chat-bubble-outline@1x.png"
+      />
+      <div class="chat poppins-bold-white-14px">Chat</div>
+    </div>
+    <div class="auto-flex3">
+      <img
+        class="icon-material-dashboard"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/icon-material-dashboard@1x.png"
+      />
+      <div class="dashboard poppins-bold-oslo-gray-14px">Dashboard</div>
+    </div>
+    <div class="auto-flex4">
+      <div class="icon-feather-settings">
+        <div class="overlap-group14">
+          <img
+            class="x19"
+            src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------19@1x.png"
+          />
+          <img
+            class="x20"
+            src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------20@1x.png"
+          />
+        </div>
+      </div>
+      <div class="settings poppins-bold-oslo-gray-14px">Settings</div>
+    </div>
+    <div class="overlap-group4"><div class="get-pro-now poppins-bold-eerie-black-14px">Get PRO Now</div></div>
+    <div class="auto-flex5">
+      <img
+        class="x1"
+        src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file-------1@1x.png"
+      />
+      <div class="overlap-group5">
+        <div class="andrei-korolev poppins-bold-eerie-black-14px">Andrei Korolev</div>
+        <div class="free-account poppins-normal-eerie-black-12px">Free account</div>
+      </div>
+    </div>
+  </div>
+  <main class="auto-flex2" id="app">
+    <img
+      class="x2"
+      src="https://anima-uploads.s3.amazonaws.com/projects/60434bf2d0925c05a2a17562/releases/60434bfefdb49a499cfb9f32/img/file------2@1x.png"
+    />
+    <div class="auto-flex-1">
+      <h1 class="chat-1 poppins-bold-eerie-black-40px">Chat</h1>
+      <div class="overlap-group2">
+        <div class="row" style="width: 100%;">
+            <div class="col s12">
+                <div class="horizontal">
+                    <div id="chat-messages" class="card-content" v-html="chatContent"></div>
+                </div>
+            </div>
+            <div class="write">
+                <input type="text" v-model="newMsg" @keyup.enter="send">
+                <a href="javascript:;" class="write-link send" @click="send"></a>
+            </div>
+        </div>
+      </div>
+    </div>
+   </main>
+    <script src="https://unpkg.com/vue@2.1.3/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/emojione/2.2.6/lib/js/emojione.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="/app.js"></script>
+   </div>
+  </body>
+</html>
