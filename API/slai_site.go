@@ -43,6 +43,7 @@ type RespponseGetData struct {
 
 // api_url on which site send Post data
 var api_url = "http://grammakey.space:8080/"
+var chat_api_url = "http://grammakey.space:8020/"
 
 var broadcast = make(chan msg_ws)           // broadcast channel
 
@@ -59,7 +60,7 @@ func main() {
 
 	// Start the server on localhost port 8000 and log any errors
 	log.Println("http server started on :8000")
-	err := http.ListenAndServe("", nil)
+	err := http.ListenAndServe(":8000", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
@@ -179,8 +180,11 @@ func handleMessages() {
 		result_txt := get_data_from_session(session)
 		fmt.Println(result_txt)
 
+		session_chat := post_data(chat_api_url, result_txt)
+		bot_answer := get_data_from_session(session_chat)
+
 		// answer by server
-		res.msg.Message = result_txt
+		res.msg.Message = bot_answer
 		res.msg.Sender = "server"
 		err2 := res.client_ws.WriteJSON(res.msg)
 		if err2 != nil {
