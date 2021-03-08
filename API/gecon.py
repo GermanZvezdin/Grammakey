@@ -49,18 +49,6 @@ def predict_for_file(input_file, output_file, model, batch_size=32):
 
 
 def predict_new_sentence(sentence):
-	with open('data/input.txt', 'w') as f:
-		f.write(sentence)
-
-	cnt_corrections = predict_for_file('data/input.txt', 'data/output.txt', model,
-                                       batch_size=128)
-	
-	with open('data/output.txt', 'r') as f:
-		file = f.read()
-		
-
-	return cnt_corrections, file 
-
 	with open('data/input.txt', 'w') as f_in:
 		f_in.write(sentence)
 	cnt_corrections = predict_for_file('data/input.txt', 'data/output.txt', model,
@@ -68,8 +56,8 @@ def predict_new_sentence(sentence):
 	print("CNT=", cnt_corrections)
 	with open('data/output.txt', 'r') as f_out:
 		file = f_out.read()
-	print(file)
-	return cnt_corrections, file
+
+	return cnt_corrections, file.rstrip()
 
 
 user_list = {}
@@ -81,13 +69,8 @@ def thread_func(conn):
         data = conn.recv(2 **  14)
         if data:
             json_obj = json.loads(data.decode("utf-8"))
-            print(json_obj)
 
             cnt, res = predict_new_sentence(json_obj['text'])
-            print(res)
-            for char in '\"':
-                res = res.replace(char, '')
-            
 
             print(f'\n res = \n',res)
 	    
@@ -112,14 +95,3 @@ if __name__ == '__main__':
 	        continue
 	    x = threading.Thread(target=thread_func, args=(conn,))
 	    x.start()
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('127.0.0.1', 8000))
-sock.listen()
-
-while True:
-    conn, adr = sock.accept()
-    if conn in user_list:
-        continue
-    x = threading.Thread(target=thread_func, args=(conn,))
-    x.start()
-    x.join()
