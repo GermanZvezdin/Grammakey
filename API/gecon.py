@@ -71,6 +71,9 @@ def thread_func(conn):
             json_obj = json.loads(data.decode("utf-8"))
 
             cnt, res = predict_new_sentence(json_obj['text'])
+            if cnt != 0:
+                err = "Sory, but you have mistake. "
+                res = err + res
 
             print(f'\n res = \n',res)
 	    
