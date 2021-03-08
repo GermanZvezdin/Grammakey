@@ -57,6 +57,7 @@ func ResHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
+	fmt.Println("id = ", id, "answer = ", activeusers[id])
 	res := fmt.Sprintf(`{"answer": "%s"}`, activeusers[id])
 	fmt.Println(activeusers)
 	w.Write([]byte(res))
@@ -73,10 +74,10 @@ func post(w http.ResponseWriter, r *http.Request) {
 	usercounter += 1
 	id := usercounter
 	defans := fmt.Sprintf(`{"id": %d}`, usercounter)
-	activeusers[usercounter] = "In work"
+	activeusers[usercounter] = ""
 
 	w.Write([]byte(defans) )
-	go MlSender(data.Text, id)
+	MlSender(data.Text, id)
 
 }
 

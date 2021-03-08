@@ -61,13 +61,24 @@ def predict_new_sentence(sentence):
 
 	return cnt_corrections, file 
 
+	with open('data/input.txt', 'w') as f_in:
+		f_in.write(sentence)
+	cnt_corrections = predict_for_file('data/input.txt', 'data/output.txt', model,
+                                       batch_size=128)
+	print("CNT=", cnt_corrections)
+	with open('data/output.txt', 'r') as f_out:
+		file = f_out.read()
+	print(file)
+	return cnt_corrections, file
+
+
+user_list = {}
 
 def thread_func(conn):
     name = None
     global user_list
     while True:
-        data = conn.recv(2 ** 14)
-
+        data = conn.recv(2 **  14)
         if data:
             json_obj = json.loads(data.decode("utf-8"))
             print(json_obj)
@@ -77,6 +88,9 @@ def thread_func(conn):
             for char in '\"':
                 res = res.replace(char, '')
             
+
+            print(f'\n res = \n',res)
+	    
             conn.send(f"{res}".encode())
         else:
             print("timeout")
@@ -84,7 +98,6 @@ def thread_func(conn):
 
     conn.close()
     del user_list[name]
-    sleep(0.1)
 
 
 if __name__ == '__main__':
@@ -99,3 +112,14 @@ if __name__ == '__main__':
 	        continue
 	    x = threading.Thread(target=thread_func, args=(conn,))
 	    x.start()
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('127.0.0.1', 8000))
+sock.listen()
+
+while True:
+    conn, adr = sock.accept()
+    if conn in user_list:
+        continue
+    x = threading.Thread(target=thread_func, args=(conn,))
+    x.start()
+    x.join()
