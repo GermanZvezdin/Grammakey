@@ -8,6 +8,7 @@ import (
     "encoding/json"
     "time"
     "bytes"
+    "strings"
 )
 
 var clients = make(map[*websocket.Conn]bool) // connected clients
@@ -176,9 +177,22 @@ func handleMessages() {
 
 		session := post_data(api_url, res.msg.Message)
 		fmt.Printf("session = %d ", session)
-		  
+		
 		result_txt := get_data_from_session(api_url, session)
 		fmt.Println(result_txt)
+
+		if (strings.HasPrefix(result_txt, "Sory, but you have mistake")) {
+			res.msg.Message = result_txt
+			res.msg.Sender = "server"
+			err2 := res.client_ws.WriteJSON(res.msg)
+			if err2 != nil {
+				log.Printf("error: %v", err2)
+				res.client_ws.Close()
+				delete(clients, res.client_ws)
+
+			}
+			continue
+		}
 
 		session_chat := post_data(chat_api_url, result_txt)
 		bot_answer := get_data_from_session(chat_api_url, session_chat)
