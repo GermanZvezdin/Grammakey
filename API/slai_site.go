@@ -122,7 +122,7 @@ func post_data(url string, text string) (session_id int64) {
   return post_data.Id
 }
 
-func get_data_from_session(session int64) (string) {
+func get_data_from_session(url string, session int64) (string) {
   /*
   When site get sessing id, site needs to send get request to the
   following url: api_url/<session_id> to get result data
@@ -131,7 +131,7 @@ func get_data_from_session(session int64) (string) {
   Output:
   	chan: channel that transfer data
   */
-  url_session := fmt.Sprintf("%s%d", api_url, session)
+  url_session := fmt.Sprintf("%s%d", url, session)
   fmt.Println(url_session)
 
 
@@ -177,11 +177,11 @@ func handleMessages() {
 		session := post_data(api_url, res.msg.Message)
 		fmt.Printf("session = %d ", session)
 		  
-		result_txt := get_data_from_session(session)
+		result_txt := get_data_from_session(api_url, session)
 		fmt.Println(result_txt)
 
 		session_chat := post_data(chat_api_url, result_txt)
-		bot_answer := get_data_from_session(session_chat)
+		bot_answer := get_data_from_session(chat_api_url, session_chat)
 
 		// answer by server
 		res.msg.Message = bot_answer
